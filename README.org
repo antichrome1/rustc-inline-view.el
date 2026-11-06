@@ -1,0 +1,16 @@
+* rustc-inline-view.el
+
+WIP
+
+#+begin_src elisp
+(use-package rustc-inline-view
+  :vc (:url "https://github.com/antichrome1/rustc-inline-view.el.git"))
+#+end_src
+
+** License, AI disclosure
+
+No AI agents/tools were/are used in this project.
+
+Copyright (c) 2026 Aditya Singh <antichrome1@proton.me>
+
+SPDX-License-Identifier: ISC
