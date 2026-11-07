@@ -16,10 +16,8 @@ not) by the rust compiler in your project.
 
 M-x `rustc-inline-view`
 
-## License
+## Metadata
 
-No AI agents/tools were/are used in this project.
-
-Copyright (c) 2026 Aditya Singh <antichrome1@proton.me>
-
-SPDX-License-Identifier: ISC
+License: ISC<br>
+AI usage: No AI agents/tools were/are used in this project.<br>
+Contact: Aditya Singh <antichrome1@proton.me>
