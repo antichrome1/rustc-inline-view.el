@@ -9,7 +9,7 @@ by the compiler in your project.
 
 ```elisp
 (use-package rustc-inline-view
-  :vc (:url "https://github.com/antichrome1/rustc-inline-view.el.git"))
+  :vc (:url rustc-inline-view "https://github.com/antichrome1/rustc-inline-view.el"))
 ```
 
 ## Usage
