@@ -8,30 +8,32 @@
 ;; URL: https://github.com/antichrome1/rustc-inline-view.el
 ;; Package-Version: 0.1.0
 ;; Package-Requires: ((emacs "28.1"))
-;; Keywords:
+;; Keywords: languages tools
 
 ;; This file is NOT part of GNU Emacs.
 
 ;;; Commentary:
 
-;;
-;;
-;;
-;;
+;; Get visual feedback of what rust code was successfully inlined (or
+;; not) by the rust compiler in your project.
 
-
 ;;; Code:
 
-(defface rust-inline-success-face '((t :background "#00422a")) "") ;; subtle green
-(defface rust-inline-missed-face '((t :background "#620f2a")) "") ;; subtle red
 (require 'cl-lib)
 
+(defface rustc-inline-view--success
+  '((t :background "#00422a"))
+  "") ;; subtle green
 
-(defmacro mark-all-open-buffers (overlay-type crate-type crate-name)
+(defface rustc-inline-view--missed
+  '((t :background "#620f2a"))
+  "") ;; subtle red
+
+(defmacro rustc-inline-view--mark-all-open-buffers (overlay-type crate-type crate-name)
   `(progn
      (let ((original-shell shell-file-name)
            (original-shell2 explicit-shell-file-name)
-           (pre-processing-command (concat 
+           (pre-processing-command (concat
                                     "DIR=$(basename $(pwd));"
                                     "SS=\"/$DIR/\";"
                                     (if (string= ,crate-type "lib")
@@ -60,13 +62,13 @@
                      (forward-line (1- line))
                      (move-to-column (1- col))
                      (let ((ov (make-overlay (point) (line-end-position))))
-                       (overlay-put ov 'face (if (string= ,overlay-type "success") 'rust-inline-success-face 'rust-inline-missed-face)))))
+                       (overlay-put ov 'face (if (string= ,overlay-type "success") 'rustc-inline-view--success 'rustc-inline-view--missed)))))
                  (display-buffer buf))))))
 
        (setq explicit-shell-file-name original-shell2)
        (setq shell-file-name original-shell))))
 
-(defun cargo-metadata ()
+(defun rustc-inline-view--cargo-metadata ()
   "Return a list of (crate-name crate-type package-path)."
   (let* ((cargo-output (shell-command-to-string
                         "cargo metadata --no-deps --format-version 1"))
@@ -87,11 +89,11 @@
   (interactive)
   (rustc-inline-view-clear-overlays)
   (message "Compiling all crates...")
-  (let* ((all-crate-info (cargo-metadata))
+  (let* ((all-crate-info (rustc-inline-view--cargo-metadata))
          (crate-names (mapcar #'car all-crate-info)))
-    (cl-loop for (crate-name crate-type crate-path) in (cargo-metadata) do
-             (mark-all-open-buffers "success" crate-type crate-name)
-             (mark-all-open-buffers "missed" crate-type crate-name))
+    (cl-loop for (crate-name crate-type crate-path) in (rustc-inline-view--cargo-metadata) do
+             (rustc-inline-view--mark-all-open-buffers "success" crate-type crate-name)
+             (rustc-inline-view--mark-all-open-buffers "missed" crate-type crate-name))
     (message (format "Marked successful and missed inlining attempts by the compiler.\n Compiled %d crates in `release' mode:\n %s" (length crate-names) crate-names))))
 
 ;;;###autoload
@@ -104,3 +106,7 @@
                    (file-in-directory-p buffer-file-name root))
           (mapc #'delete-overlay
                 (overlays-in (point-min) (point-max))))))))
+
+(provide 'rustc-inline-view)
+
+;;; rustc-inline-view.el ends here

@@ -2,8 +2,8 @@
 
 WIP
 
-Get visual feedback of what rust code was successfully inlined or not
-by the compiler in your project.
+Get visual feedback of what rust code was successfully inlined (or
+not) by the rust compiler in your project.
 
 ## Install
 
