@@ -1,13 +1,22 @@
-* rustc-inline-view.el
+# rustc-inline-view.el
 
 WIP
 
-#+begin_src elisp
+Get visual feedback of what rust code was successfully inlined or not
+by the compiler in your project.
+
+## Install
+
+```elisp
 (use-package rustc-inline-view
   :vc (:url "https://github.com/antichrome1/rustc-inline-view.el.git"))
-#+end_src
+```
 
-** License, AI disclosure
+## Usage
+
+M-x `rustc-inline-view`
+
+## License
 
 No AI agents/tools were/are used in this project.
 
