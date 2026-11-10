@@ -21,6 +21,7 @@
 
 (require 'cl-lib)
 
+;; TODO Pick color based on user's color theme
 (defface rustc-inline-view--success
   '((t :background "#00422a"))
   "") ;; subtle green
@@ -29,6 +30,7 @@
   '((t :background "#620f2a"))
   "") ;; subtle red
 
+;; TODO: remove grep and awk as deps
 (defmacro rustc-inline-view--mark-all-open-buffers (overlay-type crate-type crate-name)
   `(progn
      (let ((original-shell shell-file-name)
