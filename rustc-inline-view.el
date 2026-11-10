@@ -46,8 +46,10 @@
        (setq explicit-shell-file-name "/bin/sh")
 
        (with-temp-buffer
-         (call-process-shell-command
-          pre-processing-command nil t)
+         (start-process-shell-command
+          "rustc-inline-view"
+          "*rustc-inline-view*"
+          pre-processing-command)
          (message (concat "Compiling crate: " ,crate-name "..."))
          (dolist (entry (split-string (buffer-string) "\n" t))
            ;; (message entry)
