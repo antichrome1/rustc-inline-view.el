@@ -5,6 +5,8 @@ WIP
 Get visual feedback of what rust code was successfully inlined (or
 not) by the rust compiler in your project.
 
+![](./getrandom_example.png)
+
 ## Install
 
 ```elisp
