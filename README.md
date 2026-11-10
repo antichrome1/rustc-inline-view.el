@@ -1,11 +1,12 @@
 # rustc-inline-view.el
 
-WIP
-
 Get visual feedback of what rust code was successfully inlined (or
 not) by the rust compiler in your project.
 
 ![](./getrandom_example.png)
+
+- NOTE: Depends on cargo, grep, awk and sh (grep and awk will be removed in next release)
+- NOTE: Your project must use cargo (plain rustc support is WIP)
 
 ## Install
 
@@ -16,7 +17,9 @@ not) by the rust compiler in your project.
 
 ## Usage
 
-M-x `rustc-inline-view`
+- Navigate anywhere in your project folder
+- M-x `rustc-inline-view` (NOTE: this compiles all crates in your project)
+- M-x `rustc-inline-view-clear-overlays` to clear highlighting from all buffers
 
 ## Metadata
 
